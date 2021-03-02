@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const UsuarioSchema = Shema({
+const UsuarioSchema = Schema({
     nombre: {
         type: String,
         require: [true, 'El nombre es un campo obligatorio']
@@ -23,7 +23,7 @@ const UsuarioSchema = Shema({
         emun: ['ADMIN_ROLE', 'USER_ROLE']
     },
     estado: {
-        typr: Boolean,
+        type: Boolean,
         default: true
     },
     google: {
