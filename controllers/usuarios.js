@@ -35,12 +35,21 @@ const usuariosPost = async (req, res = response) => {
     });
 }
 
-const usuariosPut = (req, res = response) => {
-    const id = req.params.id;
+const usuariosPut = async (req, res = response) => {
+    //const id = req.params.id;
+    const { id } = req.params;
+    const { _id, password, google, correo, ...restoInfo } = req.body;
+
+    if (password) {//requiere adtualizar contraseña
+        const salt = bcryptjs.genSaltSync();//vueltas de encriptacion
+        restoInfo.password = bcryptjs.hashSync(password, salt);
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, restoInfo);
 
     res.json({
-        msj: "peticion put - controller",
-        id
+        //msj: "peticion put - controller",
+        usuario
     });
 }
 
