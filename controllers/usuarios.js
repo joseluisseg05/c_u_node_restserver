@@ -76,9 +76,17 @@ const usuariosPatch = (req, res = response) => {
     });
 }
 
-const usuariosDelete = (req, res = response) => {
+const usuariosDelete = async (req, res = response) => {
+    const { id } = req.params;
+
+    //fisicamente
+    //const usuario = await Usuario.findByIdAndDelete(id);
+    
+    //logica
+    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false})
     res.json({
-        msj: "peticion delete - controller"
+        //msj: "peticion delete - controller"
+        usuario //se puede mandar toda la data o solo el id
     });
 }
 
