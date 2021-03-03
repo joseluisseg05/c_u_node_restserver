@@ -84,9 +84,13 @@ const usuariosDelete = async (req, res = response) => {
     
     //logica
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: false})
+    
+    //conocer quien lo borro
+    //const borradoBy = req.usuario;
     res.json({
         //msj: "peticion delete - controller"
         usuario //se puede mandar toda la data o solo el id
+        //borradoBy
     });
 }
 

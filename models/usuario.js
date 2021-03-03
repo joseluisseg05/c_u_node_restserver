@@ -35,7 +35,8 @@ const UsuarioSchema = Schema({
 UsuarioSchema.methods.toJSON = function () { // rescribir metodos
     //quita __v y password de la respuesta y todos los demas datos
     // los almacena en usuario y es lo que devuelve 
-    const {__v, password, ...usuario} = this.toObject(); 
+    const {__v, password, _id, ...usuario} = this.toObject(); 
+    usuario.uid = _id; //modificar visualmente
     return usuario;
 }
 
