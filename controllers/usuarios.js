@@ -5,14 +5,31 @@ const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
 
 
-const usuariosGet = (req = request, res = response) => {
-    const query = req.query;
+const usuariosGet = async (req = request, res = response) => {
+    const { limite = 5, desde = 0 } = req.query; //argumentos opcionales 
     //si no viene el nombre pone la leyenda
-    const {params = "no params", edad} = req.body; // expone solo esas propiedades las demas las deja fuera
+    //const {params = "no params", edad} = req.body; // expone solo esas propiedades las demas las deja fuera
+    /*
+    const usuarios = await Usuario.find({estado: true})
+        .skip(Number( desde ))
+        .limit(Number( limite )); //
+
+    const total = await Usuario.countDocuments({estado: true});
+    */
+   //esta estructura reduce el tiempo porque ejecuta mas prometas al mismo tiempo 
+    const [ total, usuarios ] = await Promise.all([ //desestructuracion de arreglos
+        Usuario.countDocuments({estado: true}),
+        Usuario.find({estado: true})
+            .skip(Number( desde ))
+            .limit(Number( limite ))
+    ]);
+
     res.json({
-        msj: "peticion get - controller",
-        query,
-        params
+        //msj: "peticion get - controller",
+        //query,
+        //params
+        total,
+        usuarios
     });
 }
 
