@@ -62,7 +62,7 @@ const actualizarCategoria = async (req, res = response) => {
     const { estado, creado_por, ...data } = req.body;
 
     data.nombre = data.nombre.toUpperCase();
-    data.creado_por = req.usuario._id;
+    data.creado_por = req.usuario._id; //obtiene el id del token de la persona que esta en el sistema 
 
     const categoria = await Categoria.findByIdAndUpdate(id, data);
 
@@ -74,7 +74,7 @@ const actualizarCategoria = async (req, res = response) => {
 const borrarCategoria = async (req, res = response) => {
     const { id } = req.params;
 
-    const categoria = await Categoria.findByIdAndDelete(id, {estado:true});
+    const categoria = await Categoria.findByIdAndUpdate(id, {estado:false});
 
     res.json({
         categoria
