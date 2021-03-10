@@ -22,10 +22,10 @@ const crear = async ( req, res = response ) => {
 
     //al pasarlo por el modelo se formatea y deja fuera 
     //los datos que viene de mas 
-    //const producto = new Producto(data); 
-    //await producto.save();
+    const producto = new Producto(data); 
+    await producto.save();
 
-    const producto = await Producto.create(data); // es lo mismo que las dos 
+    //const producto = await Producto.create(data); // es lo mismo que las dos 
     //lineas anteriores y tambien lo formatea
 
     res.status(201).json({
