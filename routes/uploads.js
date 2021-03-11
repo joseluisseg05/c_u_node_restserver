@@ -16,7 +16,7 @@ router.put('/:coleccion/:id', [
     check('id', 'El id no es valido').isMongoId(),
     check('coleccion').custom( c => validarColecciones( c, ['usuarios','productos'] ) ),
     validarCampos
-], Uploads.actualizarImagen);
+], Uploads.actualizarImagenCloudinary);
 
 router.get('/:coleccion/:id', [
     check('id', 'El id no es valido').isMongoId(),
