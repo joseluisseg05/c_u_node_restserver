@@ -27,6 +27,9 @@ const ProductoSchema = Schema({
         type: Boolean,
         default: true
     }, 
+    img: {
+        type: String
+    },
     creado_por: { // saber que usuario lo creo
         type: Schema.Types.ObjectId, //el tipo de dato
         ref: 'Usuario', // la referencia del documento que apunta
