@@ -18,5 +18,11 @@ router.put('/:coleccion/:id', [
     validarCampos
 ], Uploads.actualizarImagen);
 
+router.get('/:coleccion/:id', [
+    check('id', 'El id no es valido').isMongoId(),
+    check('coleccion').custom( c => validarColecciones( c, ['usuarios','productos'] ) ),
+    validarCampos
+], Uploads.mostrarImg);
+
 module.exports = router;
 
