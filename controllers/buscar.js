@@ -7,7 +7,8 @@ const coleccionesPermitidas = [
     'categorias',
     'productos',
     'roles',
-    'usuarios'
+    'usuarios',
+    'prod_cate'
 ];
 
 const buscarUsuarios = async(termino = '', res = response) => {
@@ -37,6 +38,24 @@ const buscarUsuarios = async(termino = '', res = response) => {
 };
 
 const buscarProductos = async(termino = '', res = response) => {
+
+    const isIdMongo = ObjectId.isValid(termino);
+    if ( isIdMongo ) {
+        //const produto = await Producto.findById(termino, { estado: true });
+        return res.json({
+            results: (produto) ? [produto] : []
+        })
+    } 
+
+    const exp_reg = new RegExp (termino, 'i'); //expresion regular de js para no sencible 
+    const produtos = await Producto.find({ nombre:exp_reg, estado: true});
+
+    res.json({
+        results: produtos
+    })
+};
+
+const buscarProductosByCategoria = async(termino = '', res = response) => {
 
     const isIdMongo = ObjectId.isValid(termino);
     if ( isIdMongo ) {
@@ -95,6 +114,10 @@ const buscar = (req, res = response) => {
 
         case 'usuarios':
             buscarUsuarios(termino, res);
+        break;
+
+        case 'prod_cate':
+            buscarProductosByCategoria(termino, res);
         break;
     
         default:
